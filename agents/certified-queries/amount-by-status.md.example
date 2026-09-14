@@ -1,0 +1,13 @@
+---
+# Rename this file to "amount-by-status.md" to activate.
+# Documentation: https://docs.cube.dev/admin/ai/certified-queries
+
+description: "Total order amount grouped by status"
+user_request: "Show me total amount by order status"
+---
+SELECT
+  status,
+  MEASURE(amount) AS total_amount
+FROM orders
+GROUP BY 1
+ORDER BY 2 DESC
