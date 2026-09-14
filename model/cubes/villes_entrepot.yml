@@ -1,0 +1,7 @@
+cubes:
+  - name: villes_entrepot
+    extends: villes
+    public: false
+    description: >
+      Rôle "ville d'entrepôt" du référentiel villes, utilisé pour enrichir
+      fct_geo_fournisseurs.ville_entrepot.
