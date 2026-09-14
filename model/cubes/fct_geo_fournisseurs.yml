@@ -1,0 +1,96 @@
+cubes:
+  - name: fct_geo_fournisseurs
+    sql_table: public.fct_geo_fournisseurs
+    public: false
+    description: >
+      Routes logistiques géographiques par fournisseur (ville d'origine, ville
+      d'entrepôt, mode de transport, délais et coûts d'expédition).
+
+    joins: []
+
+    dimensions:
+      - name: route_id
+        sql: route_id
+        type: number
+        primary_key: true
+
+      - name: fournisseur_id
+        sql: fournisseur_id
+        type: number
+
+      - name: nom_fournisseur
+        sql: nom_fournisseur
+        type: string
+
+      - name: ville_origine
+        sql: ville_origine
+        type: string
+
+      - name: ville_entrepot
+        sql: ville_entrepot
+        type: string
+
+      - name: pays_fournisseur
+        sql: pays_fournisseur
+        type: string
+
+      - name: mode_transport
+        sql: mode_transport
+        type: string
+
+      - name: delai_moyen_jours
+        sql: delai_moyen_jours
+        type: number
+
+      - name: delai_ecart_type_jours
+        sql: delai_ecart_type_jours
+        type: number
+
+      - name: cout_expedition_forfaitaire
+        sql: cout_expedition_forfaitaire
+        type: number
+
+    measures:
+      - name: count
+        type: count
+        drill_members:
+          - route_id
+          - nom_fournisseur
+          - pays_fournisseur
+          - mode_transport
+
+      - name: delai_moyen_jours_avg
+        sql: delai_moyen_jours
+        type: avg
+        drill_members:
+          - route_id
+          - nom_fournisseur
+          - ville_origine
+          - ville_entrepot
+
+      - name: delai_ecart_type_jours_avg
+        sql: delai_ecart_type_jours
+        type: avg
+        drill_members:
+          - route_id
+          - nom_fournisseur
+
+      - name: cout_expedition_total
+        sql: cout_expedition_forfaitaire
+        type: sum
+        drill_members:
+          - route_id
+          - nom_fournisseur
+          - mode_transport
+
+      - name: cout_expedition_avg
+        sql: cout_expedition_forfaitaire
+        type: avg
+        drill_members:
+          - route_id
+          - nom_fournisseur
+          - mode_transport
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://docs.cube.dev/docs/pre-aggregations/getting-started-pre-aggregations

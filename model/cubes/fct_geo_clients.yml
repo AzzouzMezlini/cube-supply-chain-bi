@@ -1,0 +1,70 @@
+cubes:
+  - name: fct_geo_clients
+    sql_table: public.fct_geo_clients
+    public: false
+    description: >
+      Indicateurs géographiques et logistiques par client (ville, segment,
+      commandes, quantités livrées et retards de livraison).
+
+    joins: []
+
+    dimensions:
+      - name: client_id
+        sql: client_id
+        type: number
+        primary_key: true
+
+      - name: nom_client
+        sql: nom_client
+        type: string
+
+      - name: ville_client
+        sql: ville_client
+        type: string
+
+      - name: segment_client
+        sql: segment_client
+        type: string
+
+      - name: retard_moyen_livraison_jours
+        sql: retard_moyen_livraison_jours
+        type: number
+
+    measures:
+      - name: count
+        type: count
+        drill_members:
+          - client_id
+          - nom_client
+          - ville_client
+          - segment_client
+
+      - name: nb_commandes_total
+        sql: nb_commandes
+        type: sum
+        drill_members:
+          - client_id
+          - nom_client
+          - ville_client
+          - segment_client
+
+      - name: total_quantite_livree_sum
+        sql: total_quantite_livree
+        type: sum
+        drill_members:
+          - client_id
+          - nom_client
+          - ville_client
+
+      - name: retard_moyen_livraison_jours_avg
+        sql: retard_moyen_livraison_jours
+        type: avg
+        drill_members:
+          - client_id
+          - nom_client
+          - ville_client
+          - segment_client
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://docs.cube.dev/docs/pre-aggregations/getting-started-pre-aggregations
