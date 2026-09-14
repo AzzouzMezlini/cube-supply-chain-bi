@@ -6,7 +6,10 @@ cubes:
       Indicateurs géographiques et logistiques par client (ville, segment,
       commandes, quantités livrées et retards de livraison).
 
-    joins: []
+    joins:
+      - name: villes
+        sql: "{CUBE}.ville_client = {villes}.nom_ville_source"
+        relationship: many_to_one
 
     dimensions:
       - name: client_id

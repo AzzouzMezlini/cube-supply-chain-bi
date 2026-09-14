@@ -6,7 +6,14 @@ cubes:
       Routes logistiques géographiques par fournisseur (ville d'origine, ville
       d'entrepôt, mode de transport, délais et coûts d'expédition).
 
-    joins: []
+    joins:
+      - name: villes_origine
+        sql: "{CUBE}.ville_origine = {villes_origine}.nom_ville_source"
+        relationship: many_to_one
+
+      - name: villes_entrepot
+        sql: "{CUBE}.ville_entrepot = {villes_entrepot}.nom_ville_source"
+        relationship: many_to_one
 
     dimensions:
       - name: route_id

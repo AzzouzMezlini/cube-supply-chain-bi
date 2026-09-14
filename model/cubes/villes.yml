@@ -1,0 +1,81 @@
+cubes:
+  - name: villes
+    public: false
+    description: >
+      Référentiel des villes : nom source (tel qu'utilisé dans les tables
+      clients/fournisseurs), nom officiel, code INSEE, population et
+      coordonnées géographiques. Dédupliqué sur nom_ville_source (en gardant
+      la ville la plus peuplée) car ce nom source n'est pas unique dans la
+      table brute (ex: plusieurs "Saint-Denis" en France) — sans cela, les
+      jointures many_to_one depuis fct_geo_clients / fct_geo_fournisseurs
+      provoqueraient des doublons de lignes (fan-out).
+    sql: |
+      SELECT
+        id_ville,
+        nom_ville_source,
+        nom_ville_officiel,
+        code_insee,
+        population,
+        latitude,
+        longitude
+      FROM (
+        SELECT
+          id_ville,
+          nom_ville_source,
+          nom_ville_officiel,
+          code_insee,
+          population,
+          latitude,
+          longitude,
+          ROW_NUMBER() OVER (
+            PARTITION BY nom_ville_source
+            ORDER BY population DESC, id_ville ASC
+          ) AS rn
+        FROM public.dim_villes
+      ) dedup
+      WHERE rn = 1
+
+    joins: []
+
+    dimensions:
+      - name: id_ville
+        sql: id_ville
+        type: number
+        primary_key: true
+
+      - name: nom_ville_source
+        sql: nom_ville_source
+        type: string
+
+      - name: nom_ville_officiel
+        sql: nom_ville_officiel
+        type: string
+
+      - name: code_insee
+        sql: code_insee
+        type: string
+
+      - name: population
+        sql: population
+        type: number
+
+      - name: latitude
+        sql: latitude
+        type: number
+
+      - name: longitude
+        sql: longitude
+        type: number
+
+    measures:
+      - name: count
+        type: count
+        drill_members:
+          - id_ville
+          - nom_ville_officiel
+          - code_insee
+          - population
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://docs.cube.dev/docs/pre-aggregations/getting-started-pre-aggregations

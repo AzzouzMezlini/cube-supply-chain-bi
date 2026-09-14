@@ -9,3 +9,11 @@ views:
       - join_path: fct_geo_fournisseurs
         prefix: false
         includes: "*"
+
+      - join_path: fct_geo_fournisseurs.villes_origine
+        prefix: true
+        includes: "*"
+
+      - join_path: fct_geo_fournisseurs.villes_entrepot
+        prefix: true
+        includes: "*"
