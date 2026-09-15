@@ -1,0 +1,62 @@
+cubes:
+  - name: ventes_perdues
+    sql_table: dbt.stg_ventes_perdues
+    public: false
+    description: >
+      Ventes perdues par rupture de stock : chiffre d'affaires et quantités
+      manquantes, avec motif de rupture, par produit, client et canal.
+
+    joins:
+      - name: produits
+        sql: "{CUBE}.produit_id = {produits}.produit_id"
+        relationship: many_to_one
+
+      - name: clients
+        sql: "{CUBE}.client_id = {clients}.client_id"
+        relationship: many_to_one
+
+      - name: canaux_vente
+        sql: "{CUBE}.canal_id = {canaux_vente}.canal_id"
+        relationship: many_to_one
+
+    dimensions:
+      - name: perte_id
+        sql: perte_id
+        type: number
+        primary_key: true
+
+      - name: date_perte
+        sql: date_commande
+        type: time
+
+      - name: motif_rupture
+        sql: motif_rupture
+        type: string
+
+    measures:
+      - name: nb_pertes
+        type: count
+        drill_members:
+          - perte_id
+          - date_perte
+          - motif_rupture
+          - produits.nom_produit
+
+      - name: ca_perdu_total
+        title: "Chiffre d'affaires perdu"
+        sql: chiffre_affaires_perdu
+        type: sum
+        format: currency
+        drill_members:
+          - perte_id
+          - date_perte
+          - motif_rupture
+          - produits.nom_produit
+
+      - name: quantite_manquante_totale
+        sql: quantite_manquante
+        type: sum
+        drill_members:
+          - perte_id
+          - date_perte
+          - motif_rupture

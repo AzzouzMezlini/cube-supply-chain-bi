@@ -1,0 +1,83 @@
+cubes:
+  - name: ventes
+    sql_table: dbt.fct_ventes
+    public: false
+    description: >
+      Ventes réalisées : montant net, marge brute et quantités livrées, par
+      produit, client et canal de vente.
+
+    joins:
+      - name: produits
+        sql: "{CUBE}.produit_id = {produits}.produit_id"
+        relationship: many_to_one
+
+      - name: clients
+        sql: "{CUBE}.client_id = {clients}.client_id"
+        relationship: many_to_one
+
+      - name: canaux_vente
+        sql: "{CUBE}.canal_id = {canaux_vente}.canal_id"
+        relationship: many_to_one
+
+    dimensions:
+      - name: vente_id
+        sql: vente_id
+        type: number
+        primary_key: true
+
+      - name: date_vente
+        sql: date_commande
+        type: time
+
+      - name: prix_unitaire
+        sql: prix_unitaire
+        type: number
+
+      - name: taux_remise
+        sql: taux_remise
+        type: number
+
+    measures:
+      - name: nb_ventes
+        type: count
+        drill_members:
+          - vente_id
+          - date_vente
+          - produits.nom_produit
+          - clients.nom_client
+
+      - name: ca_total
+        title: "Chiffre d'affaires total"
+        sql: montant_net_ht
+        type: sum
+        format: currency
+        drill_members:
+          - vente_id
+          - date_vente
+          - produits.nom_produit
+          - clients.nom_client
+
+      - name: marge_totale
+        title: "Marge brute totale"
+        sql: marge_brute_eur
+        type: sum
+        format: currency
+        drill_members:
+          - vente_id
+          - date_vente
+          - produits.nom_produit
+
+      - name: taux_marge
+        title: "Taux de marge (%)"
+        description: Marge brute rapportée au chiffre d'affaires net.
+        sql: "{marge_totale}::NUMERIC / NULLIF({ca_total}, 0)"
+        type: number
+        format: percent
+
+      - name: quantite_livree_totale
+        sql: quantite_livree
+        type: sum
+        drill_members:
+          - vente_id
+          - date_vente
+          - produits.nom_produit

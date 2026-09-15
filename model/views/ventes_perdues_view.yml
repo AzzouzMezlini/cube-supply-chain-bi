@@ -1,0 +1,22 @@
+views:
+  - name: ventes_perdues_view
+    description: >
+      Vue des ventes perdues par rupture de stock : chiffre d'affaires perdu,
+      quantités manquantes et motif, avec attributs produit, client et canal.
+
+    cubes:
+      - join_path: ventes_perdues
+        prefix: false
+        includes: "*"
+
+      - join_path: ventes_perdues.produits
+        prefix: true
+        includes: "*"
+
+      - join_path: ventes_perdues.clients
+        prefix: true
+        includes: "*"
+
+      - join_path: ventes_perdues.canaux_vente
+        prefix: true
+        includes: "*"

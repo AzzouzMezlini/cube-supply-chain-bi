@@ -1,0 +1,27 @@
+views:
+  - name: ventes_view
+    description: >
+      Vue des ventes : chiffre d'affaires, marge et quantités livrées, avec
+      attributs produit, client, canal de vente et localisation géographique
+      du client.
+
+    cubes:
+      - join_path: ventes
+        prefix: false
+        includes: "*"
+
+      - join_path: ventes.produits
+        prefix: true
+        includes: "*"
+
+      - join_path: ventes.clients
+        prefix: true
+        includes: "*"
+
+      - join_path: ventes.canaux_vente
+        prefix: true
+        includes: "*"
+
+      - join_path: ventes.clients.villes
+        prefix: true
+        includes: "*"

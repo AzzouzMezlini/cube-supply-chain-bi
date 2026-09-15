@@ -1,0 +1,50 @@
+cubes:
+  - name: produits
+    sql_table: dbt.dim_produits
+    public: false
+    description: >
+      Référentiel produits : identification, marque, catégorie, unité de
+      mesure et devise de base.
+
+    dimensions:
+      - name: produit_id
+        sql: produit_id
+        type: number
+        primary_key: true
+
+      - name: code_produit
+        sql: code_produit
+        type: string
+
+      - name: nom_produit
+        sql: nom_produit
+        type: string
+
+      - name: marque
+        sql: marque
+        type: string
+
+      - name: categorie
+        sql: categorie
+        type: string
+
+      - name: unite_mesure
+        sql: unite_mesure
+        type: string
+
+      - name: devise_base
+        sql: devise_base
+        type: string
+
+      - name: est_actif
+        sql: est_actif
+        type: boolean
+
+    measures:
+      - name: count
+        type: count
+        drill_members:
+          - produit_id
+          - code_produit
+          - nom_produit
+          - categorie
