@@ -1,7 +1,7 @@
 views:
   - name: produits_view
     cubes:
-      - join_path: dim_produits
+      - join_path: produits
         includes:
           - produit_id
           - code_produit

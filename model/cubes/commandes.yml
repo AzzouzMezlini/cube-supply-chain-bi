@@ -3,11 +3,11 @@ cubes:
     sql_table: dbt.fct_commandes
 
     joins:
-      - name: dim_clients
-        sql: "{CUBE}.client_id = {dim_clients.client_id}"
+      - name: clients
+        sql: "{CUBE}.client_id = {clients.client_id}"
         relationship: many_to_one
       - name: dim_produits
-        sql: "{CUBE}.produit_id = {dim_produits.produit_id}"
+        sql: "{CUBE}.produit_id = {produits.produit_id}"
         relationship: many_to_one
 
     measures:
@@ -87,11 +87,11 @@ views:
           - taux_service_otif
           - statut_commande
           - date_commande
-      - join_path: fct_commandes.dim_clients
+      - join_path: fct_commandes.clients
         includes:
           - nom_client
           - ville_client
-      - join_path: fct_commandes.dim_produits
+      - join_path: fct_commandes.produits
         includes:
           - nom_produit
           - categorie

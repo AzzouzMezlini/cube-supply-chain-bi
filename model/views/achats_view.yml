@@ -5,7 +5,7 @@ views:
         includes:
           - total_montant_achat
           - ligne_po_id
-      - join_path: fct_achat.dim_fournisseurs
+      - join_path: fct_achat.fournisseurs
         includes:
           - nom_fournisseur
           - pays_fournisseur

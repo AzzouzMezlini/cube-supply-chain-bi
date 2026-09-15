@@ -1,5 +1,5 @@
 cubes:
-  - name: dim_fournisseurs
+  - name: fournisseurs
     sql_table: dbt.dim_fournisseurs # Pointe vers le schéma dbt nettoyé
 
     dimensions:
