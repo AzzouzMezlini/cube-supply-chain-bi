@@ -44,6 +44,11 @@ cubes:
         type: number
         sql: "100.0 * (1.0 - ({nb_commandes_en_retard}::numeric / nullif({count}, 0)))"
 
+      - name: taux_retard_livraison
+        type: number
+        sql: "100.0 * {nb_commandes_en_retard} / NULLIF({count}, 0)"
+        description: "Taux de commandes livrées en retard (%)"
+
     dimensions:
       - name: commande_id
         sql: commande_id
@@ -73,6 +78,11 @@ cubes:
       - name: date_livraison_effective
         sql: date_livraison_effective
         type: time
+
+      - name: classe_abc
+        sql: classe_abc
+        type: string
+        description: "Classification ABC du produit à la date de la vente"
 
 views:
   - name: vue_performance_logistique

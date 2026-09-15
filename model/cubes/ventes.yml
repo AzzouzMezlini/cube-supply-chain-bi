@@ -36,6 +36,11 @@ cubes:
       - name: taux_remise
         sql: taux_remise
         type: number
+        
+      - name: classe_abc
+        sql: classe_abc
+        type: string
+        description: "Classification ABC du produit à la date de la vente"
 
     measures:
       - name: nb_ventes
@@ -46,7 +51,7 @@ cubes:
           - produits.nom_produit
           - clients.nom_client
 
-      - name: ca_total
+      - name: chiffre_affaires
         title: "Chiffre d'affaires total"
         sql: montant_net_ht
         type: sum
@@ -70,7 +75,7 @@ cubes:
       - name: taux_marge
         title: "Taux de marge (%)"
         description: Marge brute rapportée au chiffre d'affaires net.
-        sql: "{marge_totale}::NUMERIC / NULLIF({ca_total}, 0)"
+        sql: "{marge_totale}::NUMERIC / NULLIF({chiffre_affaires}, 0)"
         type: number
         format: percent
 
