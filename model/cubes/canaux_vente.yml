@@ -1,0 +1,37 @@
+cubes:
+  - name: canaux_vente
+    sql_table: dbt.stg_canaux_vente
+    public: false
+    description: >
+      Référentiel des canaux de vente : mode d'exécution, mode d'expédition
+      et SLA associé.
+
+    dimensions:
+      - name: canal_id
+        sql: canal_id
+        type: number
+        primary_key: true
+
+      - name: nom_canal
+        sql: nom_canal
+        type: string
+
+      - name: type_execution
+        sql: type_execution
+        type: string
+
+      - name: mode_expedition
+        sql: mode_expedition
+        type: string
+
+      - name: sla_jours
+        sql: sla_jours
+        type: number
+
+    measures:
+      - name: count
+        type: count
+        drill_members:
+          - canal_id
+          - nom_canal
+          - type_execution
