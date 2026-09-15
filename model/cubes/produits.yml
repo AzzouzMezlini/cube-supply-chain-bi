@@ -48,3 +48,18 @@ cubes:
           - code_produit
           - nom_produit
           - categorie
+          
+      - name: prix_base
+        sql: prix_base
+        type: number
+
+      - name: cout_base
+        sql: cout_base
+        type: number
+
+      - name: nombre_produits
+        type: count
+
+      - name: prix_moyen_base
+        sql: prix_base
+        type: avg

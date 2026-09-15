@@ -3,7 +3,7 @@ views:
     cubes:
       - join_path: fct_achat
         includes:
-          - total_montant_achat
+          - montant_total_achats
           - ligne_po_id
       - join_path: fct_achat.fournisseurs
         includes:
