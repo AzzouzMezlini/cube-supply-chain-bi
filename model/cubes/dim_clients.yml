@@ -1,0 +1,26 @@
+cubes:
+  - name: dim_clients
+    sql_table: dbt.dim_clients
+
+    dimensions:
+      - name: client_id
+        sql: client_id
+        type: number
+        primary_key: true
+
+      - name: nom_client
+        sql: nom_client
+        type: string
+
+      - name: ville_client
+        sql: ville_client
+        type: string
+
+      - name: segment_client
+        sql: segment_client
+        type: string
+
+    measures:
+      - name: nombre_clients
+        type: count
+        title: "Nombre total de clients"
