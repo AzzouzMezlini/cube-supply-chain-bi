@@ -1,12 +1,24 @@
 views:
   - name: clients_view
-    title: "Vue - Référentiel Clients"
-    description: "Vue sémantique pour l'analyse du portefeuille client"
+    title: "Vue Client & Performance Commerciale"
     cubes:
+      # Attributs propres au client
       - join_path: clients
         includes:
           - client_id
           - nom_client
           - ville_client
           - segment_client
-          - count
+
+      # Métriques et dimensions de ventes reliées au client
+      - join_path: clients.ventes
+        includes:
+          - vente_id
+          - date_vente
+          - prix_unitaire
+          - taux_remise
+          - nb_ventes
+          - quantite_livree_totale
+          - ca_total
+          - marge_totale
+          - taux_marge
