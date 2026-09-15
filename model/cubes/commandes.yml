@@ -1,0 +1,97 @@
+cubes:
+  - name: fct_commandes
+    sql_table: dbt.fct_commandes
+
+    joins:
+      - name: dim_clients
+        sql: "{CUBE}.client_id = {dim_clients.client_id}"
+        relationship: many_to_one
+      - name: dim_produits
+        sql: "{CUBE}.produit_id = {dim_produits.produit_id}"
+        relationship: many_to_one
+
+    measures:
+      - name: count
+        type: count
+        description: "Nombre total de lignes de commandes"
+
+      - name: total_quantite_commandee
+        type: sum
+        sql: quantite_commandee
+
+      - name: total_quantite_livree
+        type: sum
+        sql: quantite_livree
+
+      - name: total_quantite_reliquat
+        type: sum
+        sql: quantite_reliquat
+
+      - name: lead_time_moyen_jours
+        type: avg
+        sql: lead_time_total_jours
+
+      - name: retard_moyen_jours
+        type: avg
+        sql: ecart_retard_livraison_jours
+
+      - name: nb_commandes_en_retard
+        type: count
+        filters:
+          - sql: "{CUBE}.est_en_retard = true"
+
+      - name: taux_service_otif
+        type: number
+        sql: "100.0 * (1.0 - ({nb_commandes_en_retard}::numeric / nullif({count}, 0)))"
+
+    dimensions:
+      - name: commande_id
+        sql: commande_id
+        type: number
+        primary_key: true
+
+      - name: client_id
+        sql: client_id
+        type: number
+
+      - name: produit_id
+        sql: produit_id
+        type: number
+
+      - name: statut_commande
+        sql: statut_commande
+        type: string
+
+      - name: est_en_retard
+        sql: est_en_retard
+        type: boolean
+
+      - name: date_commande
+        sql: date_commande
+        type: time
+
+      - name: date_livraison_effective
+        sql: date_livraison_effective
+        type: time
+
+views:
+  - name: vue_performance_logistique
+    cubes:
+      - join_path: fct_commandes
+        includes:
+          - count
+          - total_quantite_commandee
+          - total_quantite_livree
+          - lead_time_moyen_jours
+          - retard_moyen_jours
+          - taux_service_otif
+          - statut_commande
+          - date_commande
+      - join_path: fct_commandes.dim_clients
+        includes:
+          - nom_client
+          - ville_client
+      - join_path: fct_commandes.dim_produits
+        includes:
+          - nom_produit
+          - categorie
