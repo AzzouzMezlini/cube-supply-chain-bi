@@ -9,6 +9,9 @@ cubes:
       - name: produits
         sql: "{CUBE}.produit_id = {produits.produit_id}"
         relationship: many_to_one
+      - name: routes_achat
+        sql: "{CUBE}.route_id = {routes_achat.route_id}"
+        relationship: many_to_one
 
     measures:
       - name: count_po
