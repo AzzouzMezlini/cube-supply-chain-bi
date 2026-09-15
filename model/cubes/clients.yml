@@ -6,7 +6,7 @@ cubes:
 
     joins:
       - name: villes
-        sql: "{CUBE}.ville_client = {villes.id_ville_client}"
+        sql: "{CUBE}.id_ville_client = {villes.id_ville}"
         relationship: many_to_one
 
     dimensions:
@@ -21,10 +21,15 @@ cubes:
         type: string
         title: "Nom du client"
 
-      - name: ville_client
+      - name: id_ville_client
         sql: id_ville_client
+        type: number
+        title: "id_ville"
+        
+      - name: ville_client
+        sql: nom_ville_officiel
         type: string
-        title: "Ville"
+        title: "ville_client"
 
       - name: segment_client
         sql: segment_client
