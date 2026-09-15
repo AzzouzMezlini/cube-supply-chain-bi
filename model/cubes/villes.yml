@@ -31,7 +31,7 @@ cubes:
             PARTITION BY nom_ville_source
             ORDER BY population DESC, id_ville ASC
           ) AS rn
-        FROM public.dim_villes
+        FROM raw.villes
       ) dedup
       WHERE rn = 1
 

@@ -4,6 +4,11 @@ cubes:
     title: "Clients"
     description: "Référentiel des clients et de leurs segments géographiques"
 
+    joins:
+      - name: villes
+        sql: "{CUBE}.ville_client = {villes.nom_ville_officiel}"
+        relationship: many_to_one
+
     dimensions:
       - name: client_id
         sql: client_id
