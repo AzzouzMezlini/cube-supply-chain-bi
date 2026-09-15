@@ -1,0 +1,15 @@
+views:
+  - name: produits_view
+    cubes:
+      - join_path: dim_produits
+        includes:
+          - produit_id
+          - code_produit
+          - nom_produit
+          - marque
+          - categorie
+          - est_actif
+          - prix_base
+          - cout_base
+          - nombre_produits
+          - prix_moyen_base
