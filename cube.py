@@ -2,4 +2,4 @@
 
 from cube import config
 
-conf.pre_aggregations_schema = "cube"
+config.pre_aggregations_schema = "cube"
