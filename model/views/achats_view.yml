@@ -1,11 +1,22 @@
 views:
   - name: achats_view
+    description: >
+      Vue des achats : volumes de commandes, dépenses, suivi des réceptions
+      et performance des fournisseurs et des routes logistiques.
+
     cubes:
-      - join_path: fct_achat
-        includes:
-          - montant_total_achats
-          - ligne_po_id
-      - join_path: fct_achat.fournisseurs
-        includes:
-          - nom_fournisseur
-          - pays_fournisseur
+      - join_path: achats
+        prefix: false
+        includes: "*"
+
+      - join_path: achats.fournisseurs
+        prefix: true
+        includes: "*"
+
+      - join_path: achats.produits
+        prefix: true
+        includes: "*"
+
+      - join_path: achats.routes_achat
+        prefix: true
+        includes: "*"

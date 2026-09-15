@@ -1,15 +1,22 @@
 views:
   - name: produits_view
+    description: >
+      Vue des produits : référentiel des articles, prix de base, coûts,
+      marge théorique et suivi des ventes et achats associés.
+
     cubes:
       - join_path: produits
-        includes:
-          - produit_id
-          - code_produit
-          - nom_produit
-          - marque
-          - categorie
-          - est_actif
-          - prix_base
-          - cout_base
-          - nombre_produits
-          - prix_moyen_base
+        prefix: false
+        includes: "*"
+
+      - join_path: produits.ventes
+        prefix: true
+        includes: "*"
+
+      - join_path: produits.achats
+        prefix: true
+        includes: "*"
+
+      - join_path: produits.stock_journalier
+        prefix: true
+        includes: "*"
