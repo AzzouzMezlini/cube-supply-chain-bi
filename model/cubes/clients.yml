@@ -1,34 +1,32 @@
 cubes:
   - name: clients
     sql_table: dbt.dim_clients
-    public: false
-    description: >
-      Référentiel clients : identification, segment commercial et ville de
-      rattachement.
-
-    joins:
-      - name: villes
-        sql: "{CUBE}.id_ville_client::BIGINT = {villes}.id_ville"
-        relationship: many_to_one
+    title: "Clients"
+    description: "Référentiel des clients et de leurs segments géographiques"
 
     dimensions:
       - name: client_id
         sql: client_id
         type: number
         primary_key: true
+        title: "ID Client"
 
       - name: nom_client
         sql: nom_client
         type: string
+        title: "Nom du client"
+
+      - name: ville_client
+        sql: ville_client
+        type: string
+        title: "Ville"
 
       - name: segment_client
         sql: segment_client
         type: string
+        title: "Segment commercial"
 
     measures:
       - name: count
         type: count
-        drill_members:
-          - client_id
-          - nom_client
-          - segment_client
+        title: "Nombre de clients"

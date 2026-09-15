@@ -1,0 +1,12 @@
+views:
+  - name: clients_view
+    title: "Vue - Référentiel Clients"
+    description: "Vue sémantique pour l'analyse du portefeuille client"
+    cubes:
+      - join_path: clients
+        includes:
+          - client_id
+          - nom_client
+          - ville_client
+          - segment_client
+          - count

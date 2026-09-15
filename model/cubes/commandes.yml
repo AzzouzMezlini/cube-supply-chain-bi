@@ -6,7 +6,7 @@ cubes:
       - name: clients
         sql: "{CUBE}.client_id = {clients.client_id}"
         relationship: many_to_one
-      - name: dim_produits
+      - name: produits
         sql: "{CUBE}.produit_id = {produits.produit_id}"
         relationship: many_to_one
 
