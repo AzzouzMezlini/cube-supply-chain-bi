@@ -3,11 +3,11 @@ cubes:
     sql_table: dbt.fct_achat
 
     joins:
-      - name: dim_fournisseurs
-        sql: "{CUBE}.fournisseur_id = {dim_fournisseurs.fournisseur_id}"
+      - name: fournisseurs
+        sql: "{CUBE}.fournisseur_id = {fournisseurs.fournisseur_id}"
         relationship: many_to_one
-      - name: dim_produits
-        sql: "{CUBE}.produit_id = {dim_produits.produit_id}"
+      - name: produits
+        sql: "{CUBE}.produit_id = {produits.produit_id}"
         relationship: many_to_one
 
     measures:
@@ -78,11 +78,11 @@ views:
           - delai_reception_moyen
           - statut_commande
           - date_commande
-      - join_path: fct_achat.dim_fournisseurs
+      - join_path: fct_achat.fournisseurs
         includes:
           - nom_fournisseur
           - pays_fournisseur
-      - join_path: fct_achat.dim_produits
+      - join_path: fct_achat.produits
         includes:
           - nom_produit
           - categorie

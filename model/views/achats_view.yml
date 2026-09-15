@@ -1,0 +1,11 @@
+views:
+  - name: achats_view
+    cubes:
+      - join_path: fct_achat
+        includes:
+          - montant_total_achats
+          - ligne_po_id
+      - join_path: fct_achat.fournisseurs
+        includes:
+          - nom_fournisseur
+          - pays_fournisseur

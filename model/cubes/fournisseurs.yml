@@ -1,0 +1,17 @@
+cubes:
+  - name: fournisseurs
+    sql_table: dbt.dim_fournisseurs # Pointe vers le schéma dbt nettoyé
+
+    dimensions:
+      - name: fournisseur_id
+        sql: fournisseur_id
+        type: number
+        primary_key: true
+
+      - name: nom_fournisseur
+        sql: nom_fournisseur
+        type: string
+
+      - name: pays_fournisseur
+        sql: pays_fournisseur
+        type: string
