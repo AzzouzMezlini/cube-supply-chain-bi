@@ -41,3 +41,19 @@ cubes:
       - name: valeur_stock_fin_journee
         sql: valeur_stock_fin_journee
         type: sum
+        
+      - name: valeur_stock_moyenne
+        type: avg
+        sql: valeur_stock_fin_journee
+        description: "Valeur moyenne du stock"
+
+      - name: taux_rupture
+        type: number
+        sql: "100.0 * COUNT(CASE WHEN {est_en_rupture} THEN 1 END) / NULLIF(COUNT(*), 0)"
+        description: "Taux de rupture de stock (%)"
+
+      - name: cout_possession_total
+        type: number
+        sql: "{valeur_stock_fin_journee} * (0.20 / 365.25)"
+        description: "Coût de possession cumulé"
+        
