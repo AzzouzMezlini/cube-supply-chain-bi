@@ -1,0 +1,9 @@
+# config.yml
+runtime: plain
+memory_mode: space
+
+accessible_views:
+  - ventes_view
+  - logistique_commandes_view
+  - achats_view
+  - couverture_stock_view
