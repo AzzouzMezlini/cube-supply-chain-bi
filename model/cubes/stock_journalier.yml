@@ -1,0 +1,43 @@
+cubes:
+  - name: stock_journalier
+    sql_table: dbt.stg_stock_journalier
+    public: false
+    description: >
+      Suivi journalier des niveaux de stock par produit : quantités disponibles,
+      réservées, en transit, ruptures et valorisation.
+
+    joins:
+      - name: produits
+        sql: "{CUBE}.produit_id = {produits.produit_id}"
+        relationship: many_to_one
+
+    dimensions:
+      - name: stock_journalier_id
+        sql: "CONCAT(produit_id, '_', date_stock)"
+        type: string
+        primary_key: true
+
+      - name: produit_id
+        sql: produit_id
+        type: number
+
+      - name: date_stock
+        sql: date_stock
+        type: time
+
+      - name: est_en_rupture
+        sql: est_en_rupture
+        type: boolean
+
+    measures:
+      - name: quantite_en_stock
+        sql: quantite_en_stock
+        type: sum
+
+      - name: quantite_disponible
+        sql: quantite_disponible
+        type: sum
+
+      - name: valeur_stock_fin_journee
+        sql: valeur_stock_fin_journee
+        type: sum

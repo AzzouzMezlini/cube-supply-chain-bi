@@ -1,0 +1,22 @@
+views:
+  - name: commandes_view
+    description: >
+      Vue du suivi des commandes : exécution logistique, respect des OTIF,
+      délais de livraison et performance des canaux de distribution.
+
+    cubes:
+      - join_path: commandes
+        prefix: false
+        includes: "*"
+
+      - join_path: commandes.clients
+        prefix: true
+        includes: "*"
+
+      - join_path: commandes.produits
+        prefix: true
+        includes: "*"
+
+      - join_path: commandes.canaux_vente
+        prefix: true
+        includes: "*"

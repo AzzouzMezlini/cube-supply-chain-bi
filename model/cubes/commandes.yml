@@ -1,5 +1,5 @@
 cubes:
-  - name: fct_commandes
+  - name: commandes
     sql_table: dbt.fct_commandes
 
     joins:
@@ -77,7 +77,7 @@ cubes:
 views:
   - name: vue_performance_logistique
     cubes:
-      - join_path: fct_commandes
+      - join_path: commandes
         includes:
           - count
           - total_quantite_commandee
@@ -87,11 +87,11 @@ views:
           - taux_service_otif
           - statut_commande
           - date_commande
-      - join_path: fct_commandes.clients
+      - join_path: commandes.clients
         includes:
           - nom_client
           - ville_client
-      - join_path: fct_commandes.produits
+      - join_path: commandes.produits
         includes:
           - nom_produit
           - categorie

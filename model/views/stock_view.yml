@@ -1,0 +1,14 @@
+views:
+  - name: stock_view
+    description: >
+      Vue de la gestion des stocks : niveaux de stock journaliers, valorisation,
+      suivi des ruptures et couverture des articles.
+
+    cubes:
+      - join_path: stock_journalier
+        prefix: false
+        includes: "*"
+
+      - join_path: stock_journalier.produits
+        prefix: true
+        includes: "*"
