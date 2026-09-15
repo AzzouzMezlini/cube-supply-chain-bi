@@ -1,0 +1,41 @@
+cubes:
+  - name: routes_achat
+    sql_table: dbt.stg_routes_achat
+    public: false
+    description: >
+      Référentiel des routes d'achat : origine, destination, mode de transport,
+      délais moyens et coûts logistiques associées.
+
+    dimensions:
+      - name: route_id
+        sql: route_id
+        type: number
+        primary_key: true
+
+      - name: ville_origine
+        sql: ville_origine
+        type: string
+
+      - name: ville_destination
+        sql: ville_destination
+        type: string
+
+      - name: mode_transport
+        sql: mode_transport
+        type: string
+
+      - name: delai_moyen_jours
+        sql: delai_moyen_jours
+        type: number
+
+      - name: delai_ecart_type_jours
+        sql: delai_ecart_type_jours
+        type: number
+
+      - name: cout_expedition_forfaitaire
+        sql: cout_expedition_forfaitaire
+        type: number
+
+    measures:
+      - name: count
+        type: count
