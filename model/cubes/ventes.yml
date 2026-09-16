@@ -1,6 +1,6 @@
 cubes:
   - name: ventes
-    sql_table: dbt.fct_ventes
+    sql_table: dbt.stg_ventes
     public: false
     description: >
       Ventes réalisées : montant net, marge brute et quantités livrées, par
@@ -62,7 +62,7 @@ cubes:
           - produits.nom_produit
           - clients.nom_client
 
-      - name: marge_totale
+      - name: marge_brute_totale
         title: "Marge brute totale"
         sql: marge_brute_eur
         type: sum
@@ -75,7 +75,7 @@ cubes:
       - name: taux_marge
         title: "Taux de marge (%)"
         description: Marge brute rapportée au chiffre d'affaires net.
-        sql: "{marge_totale}::NUMERIC / NULLIF({chiffre_affaires}, 0)"
+        sql: "{marge_brute_totale}::NUMERIC / NULLIF({chiffre_affaires}, 0)"
         type: number
         format: percent
 

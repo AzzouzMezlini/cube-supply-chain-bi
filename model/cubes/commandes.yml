@@ -40,13 +40,13 @@ cubes:
         filters:
           - sql: "{CUBE}.est_en_retard = true"
 
-      - name: taux_service_otif
+      - name: taux_service
         type: number
-        sql: "100.0 * (1.0 - ({nb_commandes_en_retard}::numeric / nullif({count}, 0)))"
+        sql: "(1.0 - ({nb_commandes_en_retard}::numeric / nullif({count}, 0)))"
 
       - name: taux_retard_livraison
         type: number
-        sql: "100.0 * {nb_commandes_en_retard} / NULLIF({count}, 0)"
+        sql: "{nb_commandes_en_retard} / NULLIF({count}, 0)"
         description: "Taux de commandes livrées en retard (%)"
 
     dimensions:
@@ -94,7 +94,7 @@ views:
           - total_quantite_livree
           - lead_time_moyen_jours
           - retard_moyen_jours
-          - taux_service_otif
+          - taux_service
           - statut_commande
           - date_commande
       - join_path: commandes.clients

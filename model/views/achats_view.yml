@@ -20,3 +20,7 @@ views:
       - join_path: achats.routes_achat
         prefix: true
         includes: "*"
+        
+      - join_path: achats.fournisseurs.villes
+        prefix: true
+        includes: "*"

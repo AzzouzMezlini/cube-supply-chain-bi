@@ -18,7 +18,7 @@ cubes:
         type: count
         description: "Nombre de lignes d'achats"
 
-      - name: montant_total_achats
+      - name: cout_achat_total
         type: sum
         sql: (quantite_commandee * cout_unitaire)
 
@@ -74,7 +74,7 @@ views:
       - join_path: achats
         includes:
           - count_po
-          - montant_total_achats
+          - cout_achat_total
           - total_quantite_commandee
           - total_quantite_recue
           - cout_transport_total
