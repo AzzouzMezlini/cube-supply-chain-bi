@@ -1,6 +1,6 @@
 cubes:
   - name: stock_journalier
-    sql_table: dbt.stg_stock_journalier
+    sql_table: dbt.fct_couverture_stock
     public: false
     description: >
       Suivi journalier des niveaux de stock par produit : quantités disponibles,
@@ -28,6 +28,11 @@ cubes:
       - name: est_en_rupture
         sql: est_en_rupture
         type: boolean
+
+      - name: classe_abc
+        sql: classe_abc
+        type: string
+        description: "Classification ABC du produit à la date du stock"
 
     measures:
       - name: quantite_en_stock
