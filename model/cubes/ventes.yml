@@ -62,7 +62,7 @@ cubes:
           - produits.nom_produit
           - clients.nom_client
 
-      - name: marge_totale
+      - name: marge_brute_totale
         title: "Marge brute totale"
         sql: marge_brute_eur
         type: sum
