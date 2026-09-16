@@ -42,7 +42,7 @@ cubes:
           - motif_rupture
           - produits.nom_produit
 
-      - name: ca_perdu_total
+      - name: chiffre_affaires_perdu_total
         title: "Chiffre d'affaires perdu"
         sql: chiffre_affaires_perdu
         type: sum
