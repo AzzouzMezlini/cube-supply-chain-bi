@@ -75,7 +75,7 @@ cubes:
       - name: taux_marge
         title: "Taux de marge (%)"
         description: Marge brute rapportée au chiffre d'affaires net.
-        sql: "{marge_totale}::NUMERIC / NULLIF({chiffre_affaires}, 0)"
+        sql: "{marge_brute_totale}::NUMERIC / NULLIF({chiffre_affaires}, 0)"
         type: number
         format: percent
 
