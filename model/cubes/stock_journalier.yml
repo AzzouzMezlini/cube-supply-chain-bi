@@ -1,6 +1,6 @@
 cubes:
   - name: stock_journalier
-    sql_table: dbt.fct_couverture_stock
+    sql_table: dbt.stg_stock_journalier
     public: false
     description: >
       Suivi journalier des niveaux de stock par produit : quantités disponibles,
@@ -54,7 +54,7 @@ cubes:
 
       - name: taux_rupture
         type: number
-        sql: "100.0 * COUNT(CASE WHEN {est_en_rupture} THEN 1 END) / NULLIF(COUNT(*), 0)"
+        sql: "COUNT(CASE WHEN {est_en_rupture} THEN 1 END) / NULLIF(COUNT(*), 0)"
         description: "Taux de rupture de stock (%)"
 
       - name: cout_possession_total

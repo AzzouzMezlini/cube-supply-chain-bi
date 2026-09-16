@@ -1,6 +1,6 @@
 cubes:
   - name: ventes
-    sql_table: dbt.fct_ventes
+    sql_table: dbt.stg_ventes
     public: false
     description: >
       Ventes réalisées : montant net, marge brute et quantités livrées, par
