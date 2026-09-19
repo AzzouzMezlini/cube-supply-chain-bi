@@ -1,6 +1,6 @@
 cubes:
   - name: stock_journalier
-    sql_table: dbt.stg_stock_journalier
+    sql_table: dbt.fct_stock_journalier
     public: false
     description: >
       Suivi journalier des niveaux de stock par produit : quantités disponibles,

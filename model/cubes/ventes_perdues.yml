@@ -1,6 +1,6 @@
 cubes:
   - name: ventes_perdues
-    sql_table: dbt.stg_ventes_perdues
+    sql_table: dbt.fct_ventes_perdues
     public: false
     description: >
       Ventes perdues par rupture de stock : chiffre d'affaires et quantités

@@ -1,6 +1,6 @@
 cubes:
   - name: routes_achat
-    sql_table: dbt.stg_routes_achat
+    sql_table: dbt.fct_routes_achat
     public: false
     description: >
       Référentiel des routes d'achat : origine, destination, mode de transport,
