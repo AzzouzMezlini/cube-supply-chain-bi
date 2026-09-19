@@ -46,7 +46,7 @@ cubes:
 
       - name: taux_retard_livraison
         type: number
-        sql: "{nb_commandes_en_retard} / NULLIF({count}, 0)"
+        sql: "1.0 *{nb_commandes_en_retard} / NULLIF({count}, 0)"
         description: "Taux de commandes livrées en retard (%)"
 
     dimensions:
