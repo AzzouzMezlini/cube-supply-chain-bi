@@ -1,6 +1,6 @@
 cubes:
   - name: canaux_vente
-    sql_table: dbt.stg_canaux_vente
+    sql_table: dbt.fct_canaux_vente
     public: false
     description: >
       Référentiel des canaux de vente : mode d'exécution, mode d'expédition
