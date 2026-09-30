@@ -4,6 +4,9 @@ memory_mode: space
 
 accessible_views:
   - ventes_view
-  - logistique_commandes_view
+  - commandes_view
+  - stock_view
   - achats_view
-  - couverture_stock_view
+  - ventes_perdues_view
+  - clients_view
+  - produits_view
