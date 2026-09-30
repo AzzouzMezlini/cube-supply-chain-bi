@@ -9,6 +9,10 @@ cubes:
         sql: "{CUBE}.id_ville_client = {villes.id_ville}"
         relationship: many_to_one
 
+      - name: ventes
+        sql: "{CUBE}.client_id = {ventes.client_id}"
+        relationship: one_to_many
+
     dimensions:
       - name: client_id
         sql: client_id
@@ -24,12 +28,12 @@ cubes:
       - name: id_ville_client
         sql: id_ville_client
         type: number
-        title: "id_ville"
-        
+        title: "ID Ville"
+
       - name: ville_client
-        sql: nom_ville_officiel
+        sql: "{villes.nom_ville_officiel}"
         type: string
-        title: "ville_client"
+        title: "Ville du client"
 
       - name: segment_client
         sql: segment_client

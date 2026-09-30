@@ -1,6 +1,10 @@
 cubes:
   - name: achats
     sql_table: dbt.fct_achat
+    public: false
+    description: >
+      Faits d'achats : lignes de commandes fournisseurs, réceptions,
+      délais de livraison et coûts logistiques associés.
 
     joins:
       - name: fournisseurs
@@ -12,6 +16,40 @@ cubes:
       - name: routes_achat
         sql: "{CUBE}.route_id = {routes_achat.route_id}"
         relationship: many_to_one
+
+    dimensions:
+      - name: ligne_po_id
+        sql: ligne_po_id
+        type: number
+        primary_key: true
+
+      - name: fournisseur_id
+        sql: fournisseur_id
+        type: number
+
+      - name: produit_id
+        sql: produit_id
+        type: number
+
+      - name: route_id
+        sql: route_id
+        type: number
+
+      - name: statut_commande
+        sql: statut_commande
+        type: string
+
+      - name: devise_achat
+        sql: devise_achat
+        type: string
+
+      - name: date_commande
+        sql: date_commande
+        type: time
+
+      - name: date_reception
+        sql: date_reception
+        type: time
 
     measures:
       - name: count_po
@@ -37,55 +75,3 @@ cubes:
       - name: delai_reception_moyen
         type: avg
         sql: delai_livraison_jours
-
-    dimensions:
-      - name: ligne_po_id
-        sql: ligne_po_id
-        type: number
-        primary_key: true
-
-      - name: fournisseur_id
-        sql: fournisseur_id
-        type: number
-
-      - name: produit_id
-        sql: produit_id
-        type: number
-
-      - name: statut_commande
-        sql: statut_commande
-        type: string
-
-      - name: devise_achat
-        sql: devise_achat
-        type: string
-
-      - name: date_commande
-        sql: date_commande
-        type: time
-
-      - name: date_reception
-        sql: date_reception
-        type: time
-
-views:
-  - name: vue_analyse_achats
-    cubes:
-      - join_path: achats
-        includes:
-          - count_po
-          - cout_achat_total
-          - total_quantite_commandee
-          - total_quantite_recue
-          - cout_transport_total
-          - delai_reception_moyen
-          - statut_commande
-          - date_commande
-      - join_path: achats.fournisseurs
-        includes:
-          - nom_fournisseur
-          - pays_fournisseur
-      - join_path: achats.produits
-        includes:
-          - nom_produit
-          - categorie

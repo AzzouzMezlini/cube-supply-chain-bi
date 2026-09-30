@@ -8,15 +8,15 @@ cubes:
 
     joins:
       - name: produits
-        sql: "{CUBE}.produit_id = {produits}.produit_id"
+        sql: "{CUBE}.produit_id = {produits.produit_id}"
         relationship: many_to_one
 
       - name: clients
-        sql: "{CUBE}.client_id = {clients}.client_id"
+        sql: "{CUBE}.client_id = {clients.client_id}"
         relationship: many_to_one
 
       - name: canaux_vente
-        sql: "{CUBE}.canal_id = {canaux_vente}.canal_id"
+        sql: "{CUBE}.canal_id = {canaux_vente.canal_id}"
         relationship: many_to_one
 
     dimensions:
@@ -24,6 +24,18 @@ cubes:
         sql: vente_id
         type: number
         primary_key: true
+
+      - name: produit_id
+        sql: produit_id
+        type: number
+
+      - name: client_id
+        sql: client_id
+        type: number
+
+      - name: canal_id
+        sql: canal_id
+        type: number
 
       - name: date_vente
         sql: date_commande

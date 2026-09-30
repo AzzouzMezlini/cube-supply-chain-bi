@@ -9,6 +9,48 @@ cubes:
       - name: produits
         sql: "{CUBE}.produit_id = {produits.produit_id}"
         relationship: many_to_one
+      - name: canaux_vente
+        sql: "{CUBE}.canal_id = {canaux_vente.canal_id}"
+        relationship: many_to_one
+
+    dimensions:
+      - name: commande_id
+        sql: commande_id
+        type: number
+        primary_key: true
+
+      - name: client_id
+        sql: client_id
+        type: number
+
+      - name: produit_id
+        sql: produit_id
+        type: number
+
+      - name: canal_id
+        sql: canal_id
+        type: number
+
+      - name: statut_commande
+        sql: statut_commande
+        type: string
+
+      - name: est_en_retard
+        sql: est_en_retard
+        type: boolean
+
+      - name: date_commande
+        sql: date_commande
+        type: time
+
+      - name: date_livraison_effective
+        sql: date_livraison_effective
+        type: time
+
+      - name: classe_abc
+        sql: classe_abc
+        type: string
+        description: "Classification ABC du produit à la date de la commande"
 
     measures:
       - name: count
@@ -42,66 +84,12 @@ cubes:
 
       - name: taux_service
         type: number
-        sql: "(1.0 - ({nb_commandes_en_retard}::numeric / nullif({count}, 0)))"
+        sql: "(1.0 - ({nb_commandes_en_retard}::numeric / NULLIF({count}, 0)))"
+        format: percent
+        description: "Taux de service OTIF"
 
       - name: taux_retard_livraison
         type: number
-        sql: "1.0 *{nb_commandes_en_retard} / NULLIF({count}, 0)"
+        sql: "1.0 * {nb_commandes_en_retard} / NULLIF({count}, 0)"
+        format: percent
         description: "Taux de commandes livrées en retard (%)"
-
-    dimensions:
-      - name: commande_id
-        sql: commande_id
-        type: number
-        primary_key: true
-
-      - name: client_id
-        sql: client_id
-        type: number
-
-      - name: produit_id
-        sql: produit_id
-        type: number
-
-      - name: statut_commande
-        sql: statut_commande
-        type: string
-
-      - name: est_en_retard
-        sql: est_en_retard
-        type: boolean
-
-      - name: date_commande
-        sql: date_commande
-        type: time
-
-      - name: date_livraison_effective
-        sql: date_livraison_effective
-        type: time
-
-      - name: classe_abc
-        sql: classe_abc
-        type: string
-        description: "Classification ABC du produit à la date de la vente"
-
-views:
-  - name: vue_performance_logistique
-    cubes:
-      - join_path: commandes
-        includes:
-          - count
-          - total_quantite_commandee
-          - total_quantite_livree
-          - lead_time_moyen_jours
-          - retard_moyen_jours
-          - taux_service
-          - statut_commande
-          - date_commande
-      - join_path: commandes.clients
-        includes:
-          - nom_client
-          - ville_client
-      - join_path: commandes.produits
-        includes:
-          - nom_produit
-          - categorie

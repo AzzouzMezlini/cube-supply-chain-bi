@@ -1,10 +1,18 @@
 cubes:
   - name: routes_achat
-    sql_table: dbt.fct_routes_achat
+    sql_table: dbt.dim_routes_achat
     public: false
     description: >
       Référentiel des routes d'achat : origine, destination, mode de transport,
-      délais moyens et coûts logistiques associées.
+      délais moyens et coûts logistiques associés.
+
+    joins:
+      - name: villes_origine
+        sql: "{CUBE}.id_ville_origine = CAST({villes_origine.id_ville} AS TEXT)"
+        relationship: many_to_one
+      - name: villes_entrepot
+        sql: "{CUBE}.id_ville_destination = CAST({villes_entrepot.id_ville} AS TEXT)"
+        relationship: many_to_one
 
     dimensions:
       - name: route_id
@@ -12,12 +20,16 @@ cubes:
         type: number
         primary_key: true
 
-      - name: ville_origine
-        sql: ville_origine
+      - name: fournisseur_id
+        sql: fournisseur_id
+        type: number
+
+      - name: id_ville_origine
+        sql: id_ville_origine
         type: string
 
-      - name: ville_destination
-        sql: ville_destination
+      - name: id_ville_destination
+        sql: id_ville_destination
         type: string
 
       - name: mode_transport

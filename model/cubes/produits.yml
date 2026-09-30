@@ -6,6 +6,19 @@ cubes:
       Référentiel produits : identification, marque, catégorie, unité de
       mesure et devise de base.
 
+    joins:
+      - name: ventes
+        sql: "{CUBE}.produit_id = {ventes.produit_id}"
+        relationship: one_to_many
+
+      - name: achats
+        sql: "{CUBE}.produit_id = {achats.produit_id}"
+        relationship: one_to_many
+
+      - name: stock_journalier
+        sql: "{CUBE}.produit_id = {stock_journalier.produit_id}"
+        relationship: one_to_many
+
     dimensions:
       - name: produit_id
         sql: produit_id
@@ -32,6 +45,14 @@ cubes:
         sql: unite_mesure
         type: string
 
+      - name: prix_base
+        sql: prix_base
+        type: number
+
+      - name: cout_base
+        sql: cout_base
+        type: number
+
       - name: devise_base
         sql: devise_base
         type: string
@@ -48,18 +69,14 @@ cubes:
           - code_produit
           - nom_produit
           - categorie
-          
-      - name: prix_base
-        sql: prix_base
-        type: number
-
-      - name: cout_base
-        sql: cout_base
-        type: number
 
       - name: nombre_produits
         type: count
 
       - name: prix_moyen_base
         sql: prix_base
+        type: avg
+
+      - name: cout_moyen_base
+        sql: cout_base
         type: avg

@@ -1,6 +1,6 @@
 cubes:
   - name: stock_journalier
-    sql_table: dbt.fct_stock_journalier
+    sql_table: dbt.fct_couverture_stock
     public: false
     description: >
       Suivi journalier des niveaux de stock par produit : quantités disponibles,
@@ -13,7 +13,7 @@ cubes:
 
     dimensions:
       - name: stock_journalier_id
-        sql: "CONCAT(produit_id, '_', date_stock)"
+        sql: "CONCAT({CUBE}.produit_id, '_', {CUBE}.date_stock)"
         type: string
         primary_key: true
 
@@ -26,8 +26,9 @@ cubes:
         type: time
 
       - name: est_en_rupture
-        sql: est_en_rupture
+        sql: "{CUBE}.quantite_disponible <= 0"
         type: boolean
+        description: "Vrai si la quantité disponible est nulle ou négative"
 
       - name: classe_abc
         sql: classe_abc
@@ -35,6 +36,10 @@ cubes:
         description: "Classification ABC du produit à la date du stock"
 
     measures:
+      - name: count
+        type: count
+        description: "Nombre de relevés de stock journalier"
+
       - name: quantite_en_stock
         sql: quantite_en_stock
         type: sum
@@ -54,11 +59,11 @@ cubes:
 
       - name: taux_rupture
         type: number
-        sql: "COUNT(CASE WHEN {est_en_rupture} THEN 1 END) / NULLIF(COUNT(*), 0)"
+        sql: "1.0 * COUNT(CASE WHEN {est_en_rupture} THEN 1 END) / NULLIF(COUNT(*), 0)"
+        format: percent
         description: "Taux de rupture de stock (%)"
 
       - name: cout_possession_total
         type: number
         sql: "{valeur_stock_fin_journee} * (0.20 / 365.25)"
         description: "Coût de possession cumulé"
-        
