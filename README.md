@@ -66,12 +66,12 @@ flowchart TD
 | [`commandes`](model/cubes/commandes.yml) | Fait | `dbt.fct_commandes` | Suivi logistique, lead time, retards et taux de service |
 | [`stock_journalier`](model/cubes/stock_journalier.yml) | Fait | `dbt.fct_couverture_stock` | Niveaux de stocks journaliers, valeur de stock, classe ABC |
 | [`achats`](model/cubes/achats.yml) | Fait | `dbt.fct_achat` | Commandes fournisseurs, réceptions, délais et coûts de transport |
-| [`ventes_perdues`](model/cubes/ventes_perdues.yml) | Fait | `dbt.stg_ventes_perdues` | Pertes financières dues aux ruptures de stock |
+| [`ventes_perdues`](model/cubes/ventes_perdues.yml) | Fait | `dbt.fct_ventes_perdues` | Pertes financières dues aux ruptures de stock |
 | [`produits`](model/cubes/produits.yml) | Dimension | `dbt.dim_produits` | Référentiel articles, marques, catégories, prix & coûts de base |
 | [`clients`](model/cubes/clients.yml) | Dimension | `dbt.dim_clients` | Portefeuille clients, segmentation B2B/B2C, localisation |
 | [`fournisseurs`](model/cubes/fournisseurs.yml) | Dimension | `dbt.dim_fournisseurs` | Référentiel des partenaires d'approvisionnement et pays |
-| [`canaux_vente`](model/cubes/canaux_vente.yml) | Dimension | `dbt.stg_canaux_vente` | Canaux de distribution, modes d'expédition et SLA |
-| [`routes_achat`](model/cubes/routes_achat.yml) | Dimension | `dbt.stg_routes_achat` | Routes de transport, délais théoriques et coûts forfaitaires |
+| [`canaux_vente`](model/cubes/canaux_vente.yml) | Dimension | `dbt.dim_canaux_vente` | Canaux de distribution, modes d'expédition et SLA |
+| [`routes_achat`](model/cubes/routes_achat.yml) | Dimension | `dbt.dim_routes_achat` | Routes de transport, délais théoriques et coûts forfaitaires |
 | [`villes`](model/cubes/villes.yml) | Référentiel | `raw.villes` (dédupliqué) | Coordonnées GPS, codes INSEE et population |
 
 ### Vues Métier (`model/views/`)
