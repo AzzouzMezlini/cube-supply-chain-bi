@@ -13,6 +13,10 @@ views:
         prefix: true
         includes: "*"
 
+      - join_path: commandes.clients.villes
+        prefix: true
+        includes: "*"
+
       - join_path: commandes.produits
         prefix: true
         includes: "*"
